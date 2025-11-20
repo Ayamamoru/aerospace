@@ -5,170 +5,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lunar Rover Mining Simulation</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: 'Courier New', monospace;
-            background: #0a0a15;
-            color: #00ff00;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            background-color: black;
+            color: lime;
+            font-family: Arial;
+            padding: 10px;
         }
         
-        .container {
-            background: #1a1a2e;
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 900px;
+        .back-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #333;
+            color: lime;
+            border: 2px solid lime;
+            padding: 8px 15px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .back-button:hover {
+            background-color: lime;
+            color: black;
         }
         
         h1 {
             text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #00ff00;
+            color: lime;
+            margin-bottom: 15px;
         }
         
-        .game-area {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+        .container {
+            background-color: #111;
+            border: 3px solid lime;
+            padding: 15px;
+            margin: 0 auto;
+            width: 95%;
+            max-width: 1100px;
         }
         
         canvas {
-            border: 2px solid #00ff00;
-            background: #16213e;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            border: 2px solid lime;
+            background-color: #222;
+            float: left;
+        }
+        
+        .game-area {
+            overflow: hidden;
         }
         
         .controls {
-            flex: 1;
-            min-width: 250px;
+            float: left;
+            width: 280px;
+            margin-left: 15px;
         }
         
         .stats {
-            background: #0f3460;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #00ff00;
+            background-color: #1a1a1a;
+            border: 2px solid lime;
+            padding: 10px;
+            margin-bottom: 10px;
         }
         
         .stat-item {
-            display: flex;
-            justify-content: space-between;
-            margin: 8px 0;
-            padding: 5px;
-            background: rgba(0, 255, 0, 0.1);
-            border-radius: 3px;
+            margin: 5px 0px;
+            padding: 3px;
         }
         
         .stat-label {
             font-weight: bold;
+            color: lime;
         }
         
         .stat-value {
-            color: #00ffff;
+            color: cyan;
+            float: right;
         }
         
         .progress-bar {
-            width: 100%;
-            height: 20px;
-            background: #0a0a15;
-            border: 1px solid #00ff00;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 5px;
+            background-color: #333;
+            border: 1px solid lime;
+            height: 18px;
+            margin-top: 3px;
         }
         
         .progress-fill {
+            background-color: lime;
             height: 100%;
-            background: linear-gradient(90deg, #00ff00, #00ffff);
-            transition: width 0.3s;
         }
         
         button {
+            background-color: lime;
+            color: black;
+            border: 2px solid lime;
+            padding: 10px;
             width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            background: #00ff00;
-            color: #0a0a15;
-            border: none;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
+            margin: 5px 0px;
+            font-size: 13px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
+            font-weight: bold;
         }
         
         button:hover {
-            background: #00ffff;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
-            transform: translateY(-2px);
-        }
-        
-        button:active {
-            transform: translateY(0);
+            background-color: cyan;
+            border-color: cyan;
         }
         
         .log {
-            background: #0a0a15;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #00ff00;
-            max-height: 150px;
-            overflow-y: auto;
-            font-size: 12px;
-            margin-top: 15px;
+            background-color: black;
+            border: 2px solid lime;
+            padding: 8px;
+            height: 140px;
+            overflow-y: scroll;
+            font-size: 11px;
+            margin-top: 10px;
         }
         
         .log-entry {
-            padding: 3px 0;
-            opacity: 0.8;
-        }
-        
-        .log-entry:last-child {
-            opacity: 1;
-            color: #00ffff;
+            margin: 2px 0px;
+            color: #0f0;
         }
         
         .legend {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-top: 15px;
-            font-size: 12px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 11px;
         }
         
         .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            margin: 5px 0px;
         }
         
         .legend-icon {
-            width: 20px;
-            height: 20px;
-            border: 1px solid #00ff00;
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 1px solid lime;
+            margin-right: 5px;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
+    <a href="index.html" class="back-button">← Back</a>
+    
     <div class="container">
-        <h1> LUNAR ROVER MINING SIM</h1>
+        <h1>🌙 LUNAR ROVER MINING SIM</h1>
         
         <div class="game-area">
-            <canvas id="gameCanvas" width="600" height="600"></canvas>
+            <canvas id="gameCanvas" width="700" height="550"></canvas>
             
             <div class="controls">
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #00ff00;"></div>
+                        <span>Rover</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #ffff00;"></div>
+                        <span>Resources</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #0088ff;"></div>
+                        <span>Base</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #666;"></div>
+                        <span>Craters</span>
+                    </div>
+                </div>
+                
                 <div class="stats">
                     <div class="stat-item">
                         <span class="stat-label">Resources:</span>
