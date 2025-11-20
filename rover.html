@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunar Rover Mining Simulation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a15;
+            color: #00ff00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            background: #1a1a2e;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 900px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        
+        .game-area {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        canvas {
+            border: 2px solid #00ff00;
+            background: #16213e;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        
+        .controls {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .stats {
+            background: #0f3460;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #00ff00;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 5px;
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 3px;
+        }
+        
+        .stat-label {
+            font-weight: bold;
+        }
+        
+        .stat-value {
+            color: #00ffff;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #0a0a15;
+            border: 1px solid #00ff00;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #00ffff);
+            transition: width 0.3s;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #00ff00;
+            color: #0a0a15;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            background: #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .log {
+            background: #0a0a15;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #00ff00;
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+        
+        .log-entry {
+            padding: 3px 0;
+            opacity: 0.8;
+        }
+        
+        .log-entry:last-child {
+            opacity: 1;
+            color: #00ffff;
+        }
+        
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-icon {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> LUNAR ROVER MINING SIM</h1>
+        
+        <div class="game-area">
+            <canvas id="gameCanvas" width="600" height="600"></canvas>
+            
+            <div class="controls">
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Resources:</span>
+                        <span class="stat-value" id="resources">0 kg</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Capacity:</span>
+                        <span class="stat-value" id="capacity">0/100 kg</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="capacityBar"></div>
+                    </div>
+                    
+                    <div class="stat-item" style="margin-top: 10px;">
+                        <span class="stat-label">Battery:</span>
+                        <span class="stat-value" id="battery">100%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="batteryBar"></div>
+                    </div>
+                    
+                    <div class="stat-item" style="margin-top: 10px;">
+                        <span class="stat-label">Status:</span>
+                        <span class="stat-value" id="status">Idle</span>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <span class="stat-label">Trips:</span>
+                        <span class="stat-value" id="trips">0</span>
+                    </div>
+                </div>
+                
+                <button onclick="startAutomation()">Start Auto-Mining</button>
+                <button onclick="stopAutomation()">Stop</button>
+                <button onclick="returnToBase()">Return to Base</button>
+                <button onclick="resetSimulation()">Reset Simulation</button>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #00ff00;"></div>
+                        <span>Rover</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #ffff00;"></div>
+                        <span>Resources</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #0088ff;"></div>
+                        <span>Base</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background: #666;"></div>
+                        <span>Craters</span>
+                    </div>
+                </div>
+                
+                <div class="log" id="log"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Game state
+        let rover = {
+            x: 50,
+            y: 50,
+            size: 15,
+            speed: 2,
+            targetX: 50,
+            targetY: 50,
+            cargo: 0,
+            maxCargo: 100,
+            battery: 100,
+            maxBattery: 100,
+            status: 'idle'
+        };
+        
+        let base = { x: 50, y: 50, size: 30 };
+        let resources = [];
+        let obstacles = [];
+        let totalCollected = 0;
+        let trips = 0;
+        let isAutomated = false;
+        let animationId = null;
+        
+        // Initialize game
+        function init() {
+            generateTerrain();
+            generateResources();
+            addLog('System initialized. Ready for mining operations.');
+            gameLoop();
+        }
+        
+        function generateTerrain() {
+            obstacles = [];
+            for (let i = 0; i < 15; i++) {
+                obstacles.push({
+                    x: Math.random() * (canvas.width - 100) + 50,
+                    y: Math.random() * (canvas.height - 100) + 50,
+                    size: 20 + Math.random() * 30
+                });
+            }
+        }
+        
+        function generateResources() {
+            resources = [];
+            for (let i = 0; i < 20; i++) {
+                let res = {
+                    x: Math.random() * (canvas.width - 100) + 50,
+                    y: Math.random() * (canvas.height - 100) + 50,
+                    amount: 10 + Math.random() * 20,
+                    collected: false
+                };
+                resources.push(res);
+            }
+        }
+        
+        function gameLoop() {
+            update();
+            draw();
+            animationId = requestAnimationFrame(gameLoop);
+        }
+        
+        function update() {
+            if (rover.status === 'idle') return;
+            
+            // Move rover towards target
+            let dx = rover.targetX - rover.x;
+            let dy = rover.targetY - rover.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance > 2) {
+                rover.x += (dx / distance) * rover.speed;
+                rover.y += (dy / distance) * rover.speed;
+                rover.battery = Math.max(0, rover.battery - 0.02);
+            } else {
+                // Reached target
+                if (rover.status === 'mining') {
+                    mineResource();
+                } else if (rover.status === 'returning') {
+                    unloadCargo();
+                }
+            }
+            
+            // Auto-mining logic
+            if (isAutomated && rover.status === 'idle') {
+                if (rover.cargo >= rover.maxCargo || rover.battery < 20) {
+                    returnToBase();
+                } else {
+                    findNextResource();
+                }
+            }
+            
+            updateUI();
+        }
+        
+        function draw() {
+            // Clear canvas
+            ctx.fillStyle = '#16213e';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw grid
+            ctx.strokeStyle = 'rgba(0, 255, 0, 0.1)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < canvas.width; i += 50) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, canvas.height);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(canvas.width, i);
+                ctx.stroke();
+            }
+            
+            // Draw obstacles (craters)
+            ctx.fillStyle = '#555';
+            obstacles.forEach(obs => {
+                ctx.beginPath();
+                ctx.arc(obs.x, obs.y, obs.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+            
+            // Draw resources
+            resources.forEach(res => {
+                if (!res.collected) {
+                    ctx.fillStyle = '#ffff00';
+                    ctx.beginPath();
+                    ctx.arc(res.x, res.y, 8, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.strokeStyle = '#ffaa00';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    
+                    // Glow effect
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = '#ffff00';
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            });
+            
+            // Draw base
+            ctx.fillStyle = '#0088ff';
+            ctx.fillRect(base.x - base.size/2, base.y - base.size/2, base.size, base.size);
+            ctx.strokeStyle = '#00ffff';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(base.x - base.size/2, base.y - base.size/2, base.size, base.size);
+            ctx.fillStyle = '#fff';
+            ctx.font = '20px Courier New';
+            ctx.textAlign = 'center';
+            ctx.fillText('B', base.x, base.y + 7);
+            
+            // Draw rover
+            ctx.save();
+            ctx.translate(rover.x, rover.y);
+            
+            // Rover body
+            ctx.fillStyle = rover.battery < 20 ? '#ff6600' : '#00ff00';
+            ctx.fillRect(-rover.size/2, -rover.size/2, rover.size, rover.size);
+            ctx.strokeStyle = '#00ffff';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(-rover.size/2, -rover.size/2, rover.size, rover.size);
+            
+            // Rover wheels
+            ctx.fillStyle = '#333';
+            ctx.fillRect(-rover.size/2 - 3, -rover.size/2 - 2, 3, 5);
+            ctx.fillRect(-rover.size/2 - 3, rover.size/2 - 3, 3, 5);
+            ctx.fillRect(rover.size/2, -rover.size/2 - 2, 3, 5);
+            ctx.fillRect(rover.size/2, rover.size/2 - 3, 3, 5);
+            
+            ctx.restore();
+            
+            // Draw path line
+            if (rover.status !== 'idle') {
+                ctx.strokeStyle = 'rgba(0, 255, 0, 0.3)';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                ctx.moveTo(rover.x, rover.y);
+                ctx.lineTo(rover.targetX, rover.targetY);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+        }
+        
+        function findNextResource() {
+            let nearest = null;
+            let minDist = Infinity;
+            
+            resources.forEach(res => {
+                if (!res.collected) {
+                    let dist = Math.sqrt(Math.pow(res.x - rover.x, 2) + Math.pow(res.y - rover.y, 2));
+                    if (dist < minDist) {
+                        minDist = dist;
+                        nearest = res;
+                    }
+                }
+            });
+            
+            if (nearest) {
+                rover.targetX = nearest.x;
+                rover.targetY = nearest.y;
+                rover.status = 'mining';
+                addLog('Target acquired. Moving to resource...');
+            } else {
+                addLog('No resources available. Returning to base...');
+                returnToBase();
+            }
+        }
+        
+        function mineResource() {
+            let res = resources.find(r => 
+                !r.collected && 
+                Math.abs(r.x - rover.x) < 10 && 
+                Math.abs(r.y - rover.y) < 10
+            );
+            
+            if (res && rover.cargo < rover.maxCargo) {
+                let mined = Math.min(res.amount, rover.maxCargo - rover.cargo);
+                rover.cargo += mined;
+                res.collected = true;
+                addLog(`Mined ${mined.toFixed(1)} kg of resources`);
+                
+                if (isAutomated) {
+                    rover.status = 'idle';
+                } else {
+                    rover.status = 'idle';
+                }
+            }
+        }
+        
+        function returnToBase() {
+            rover.targetX = base.x;
+            rover.targetY = base.y;
+            rover.status = 'returning';
+            addLog('Returning to base...');
+        }
+        
+        function unloadCargo() {
+            if (rover.cargo > 0) {
+                totalCollected += rover.cargo;
+                addLog(`Unloaded ${rover.cargo.toFixed(1)} kg at base`);
+                rover.cargo = 0;
+                trips++;
+            }
+            rover.battery = rover.maxBattery;
+            addLog('Battery recharged to 100%');
+            rover.status = 'idle';
+        }
+        
+        function startAutomation() {
+            isAutomated = true;
+            addLog('Automated mining started');
+            if (rover.status === 'idle') {
+                findNextResource();
+            }
+        }
+        
+        function stopAutomation() {
+            isAutomated = false;
+            addLog('Automated mining stopped');
+        }
+        
+        function resetSimulation() {
+            rover.x = base.x;
+            rover.y = base.y;
+            rover.cargo = 0;
+            rover.battery = 100;
+            rover.status = 'idle';
+            totalCollected = 0;
+            trips = 0;
+            isAutomated = false;
+            generateResources();
+            addLog('Simulation reset');
+            updateUI();
+        }
+        
+        function updateUI() {
+            document.getElementById('resources').textContent = totalCollected.toFixed(1) + ' kg';
+            document.getElementById('capacity').textContent = rover.cargo.toFixed(1) + '/' + rover.maxCargo + ' kg';
+            document.getElementById('battery').textContent = rover.battery.toFixed(1) + '%';
+            document.getElementById('status').textContent = rover.status.charAt(0).toUpperCase() + rover.status.slice(1);
+            document.getElementById('trips').textContent = trips;
+            
+            document.getElementById('capacityBar').style.width = (rover.cargo / rover.maxCargo * 100) + '%';
+            document.getElementById('batteryBar').style.width = rover.battery + '%';
+        }
+        
+        function addLog(message) {
+            const log = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            const time = new Date().toLocaleTimeString();
+            entry.textContent = `[${time}] ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+            
+            // Keep only last 20 entries
+            while (log.children.length > 20) {
+                log.removeChild(log.firstChild);
+            }
+        }
+        
+        // Click to set manual target
+        canvas.addEventListener('click', (e) => {
+            if (!isAutomated) {
+                const rect = canvas.getBoundingClientRect();
+                rover.targetX = e.clientX - rect.left;
+                rover.targetY = e.clientY - rect.top;
+                rover.status = 'moving';
+                addLog('Manual target set');
+            }
+        });
+        
+        // Start the simulation
+        init();
+    </script>
+</body>
+</html>

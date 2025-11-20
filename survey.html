@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunar Water Mining Survey</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>🌙 LunarH2O</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="survey.html" class="active">Survey</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Space Exploration Survey</h1>
+        <p>Help us understand public interest in lunar water mining and space exploration</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section class="form-section">
+            <div class="form-intro">
+                <h2>Share Your Perspective</h2>
+                <p>Your feedback will help shape future space exploration initiatives. This survey takes approximately 5 minutes to complete.</p>
+            </div>
+
+            <!-- Survey Form -->
+            <form class="survey-form" action="#" method="post">
+                
+                <!-- Section 1: Personal Information -->
+                <fieldset class="form-group">
+                    <legend>Personal Information</legend>
+                    
+                    <div class="form-field">
+                        <label for="fullname">Full Name: <span class="required">*</span></label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="email">Email Address: <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="age">Age Group: <span class="required">*</span></label>
+                        <select id="age" name="age" required>
+                            <option value="">-- Select Age Group --</option>
+                            <option value="under18">Under 18</option>
+                            <option value="18-24">18-24</option>
+                            <option value="25-34">25-34</option>
+                            <option value="35-44">35-44</option>
+                            <option value="45-54">45-54</option>
+                            <option value="55-64">55-64</option>
+                            <option value="65plus">65+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="country">Country: <span class="required">*</span></label>
+                        <input type="text" id="country" name="country" placeholder="Your country" required>
+                    </div>
+                </fieldset>
+
+                <!-- Section 2: Space Exploration Interest -->
+                <fieldset class="form-group">
+                    <legend>Space Exploration Interest</legend>
+                    
+                    <div class="form-field">
+                        <label>How interested are you in space exploration? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="interest" value="very-interested" required>
+                                <span>Very Interested</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="interest" value="somewhat-interested">
+                                <span>Somewhat Interested</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="interest" value="neutral">
+                                <span>Neutral</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="interest" value="not-interested">
+                                <span>Not Very Interested</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="interest" value="no-interest">
+                                <span>No Interest</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>Which space topics interest you most? (Select all that apply)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="topics" value="moon-exploration">
+                                <span>Lunar Exploration</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="topics" value="mars-missions">
+                                <span>Mars Missions</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="topics" value="asteroid-mining">
+                                <span>Asteroid Mining</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="topics" value="space-tourism">
+                                <span>Space Tourism</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="topics" value="satellite-tech">
+                                <span>Satellite Technology</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="topics" value="iss">
+                                <span>International Space Station</span>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Section 3: Lunar Water Mining Knowledge -->
+                <fieldset class="form-group">
+                    <legend>Lunar Water Mining Knowledge</legend>
+                    
+                    <div class="form-field">
+                        <label>Before visiting this website, were you aware that water exists on the Moon?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="aware" value="yes">
+                                <span>Yes, I knew about lunar water</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="aware" value="heard">
+                                <span>I had heard about it but wasn't sure</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="aware" value="no">
+                                <span>No, this is new information</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="knowledge-level">Rate your current knowledge of lunar water mining (1-10): <span class="required">*</span></label>
+                        <div class="range-container">
+                            <input type="range" id="knowledge-level" name="knowledge-level" min="1" max="10" value="5" required>
+                            <div class="range-labels">
+                                <span>1 (Beginner)</span>
+                                <span>5 (Moderate)</span>
+                                <span>10 (Expert)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="mission-knowledge">Which lunar missions are you familiar with? (Select all that apply)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="missions" value="apollo">
+                                <span>Apollo Program (1969-1972)</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="missions" value="chandrayaan">
+                                <span>India's Chandrayaan-1 (2008)</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="missions" value="change">
+                                <span>China's Chang'E-5 (2020)</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="missions" value="artemis">
+                                <span>NASA's Artemis Program (ongoing)</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="missions" value="none">
+                                <span>None of the above</span>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Section 4: Opinions on Space Exploration -->
+                <fieldset class="form-group">
+                    <legend>Your Opinions</legend>
+                    
+                    <div class="form-field">
+                        <label>Do you support government funding for lunar water mining projects?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="funding" value="strongly-support">
+                                <span>Strongly Support</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="funding" value="support">
+                                <span>Support</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="funding" value="neutral">
+                                <span>Neutral</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="funding" value="oppose">
+                                <span>Oppose</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="funding" value="strongly-oppose">
+                                <span>Strongly Oppose</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="importance">How important is establishing a permanent lunar base? (1-10): <span class="required">*</span></label>
+                        <div class="range-container">
+                            <input type="range" id="importance" name="importance" min="1" max="10" value="5" required>
+                            <div class="range-labels">
+                                <span>1 (Not Important)</span>
+                                <span>5 (Moderately Important)</span>
+                                <span>10 (Extremely Important)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="priority">What should be the top priority for lunar water resources?</label>
+                        <select id="priority" name="priority">
+                            <option value="">-- Select Priority --</option>
+                            <option value="life-support">Life support for astronauts (drinking water, oxygen)</option>
+                            <option value="rocket-fuel">Rocket fuel production for Mars missions</option>
+                            <option value="scientific">Scientific research about the solar system</option>
+                            <option value="commercial">Commercial space tourism</option>
+                            <option value="equal">Equal focus on all applications</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>What concerns do you have about lunar mining? (Select all that apply)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="cost">
+                                <span>High costs and budget allocation</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="environmental">
+                                <span>Environmental impact on the Moon</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="safety">
+                                <span>Astronaut safety risks</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="ownership">
+                                <span>Ownership and legal issues</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="tech">
+                                <span>Technology not ready</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="none">
+                                <span>No significant concerns</span>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Section 5: Future Vision -->
+                <fieldset class="form-group">
+                    <legend>Your Vision for the Future</legend>
+                    
+                    <div class="form-field">
+                        <label for="timeline">When do you think humans will establish a permanent lunar base?</label>
+                        <select id="timeline" name="timeline">
+                            <option value="">-- Select Timeframe --</option>
+                            <option value="2020s">By 2030 (Within this decade)</option>
+                            <option value="2030s">2030-2040</option>
+                            <option value="2040s">2040-2050</option>
+                            <option value="later">After 2050</option>
+                            <option value="never">Never / Not in our lifetime</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>Would you consider traveling to the Moon if commercial lunar tourism became available and affordable?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="travel" value="definitely">
+                                <span>Definitely Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="travel" value="probably">
+                                <span>Probably Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="travel" value="maybe">
+                                <span>Maybe / Unsure</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="travel" value="probably-not">
+                                <span>Probably Not</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="travel" value="definitely-not">
+                                <span>Definitely Not</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="comments">Additional Comments or Questions:</label>
+                        <textarea id="comments" name="comments" rows="6" placeholder="Share your thoughts, questions, or ideas about lunar water mining and space exploration..."></textarea>
+                    </div>
+                </fieldset>
+
+                <!-- Newsletter Signup -->
+                <fieldset class="form-group">
+                    <legend>Stay Connected</legend>
+                    
+                    <div class="form-field">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="newsletter" value="yes">
+                            <span>Subscribe to our newsletter for updates on lunar exploration and space technology</span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" value="agreed" required>
+                            <span>I agree to the terms and conditions and privacy policy <span class="required">*</span></span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Submit Buttons -->
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Submit Survey</button>
+                    <button type="reset" class="btn-secondary">Clear Form</button>
+                </div>
+            </form>
+
+            <!-- Post-Form Information -->
+            <div class="form-footer">
+                <h3>Thank You!</h3>
+                <p>Your responses help inform future space exploration initiatives. For more information about lunar water mining, visit:</p>
+                <ul class="resource-links">
+                    <li><a href="https://www.nasa.gov/artemis" target="_blank">NASA Artemis Program</a></li>
+                    <li><a href="https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/Exploration/Moon" target="_blank">ESA Lunar Exploration</a></li>
+                    <li><a href="http://www.cnsa.gov.cn/english/" target="_blank">China National Space Administration</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 LunarH2O Mining Project. Educational Website for Aerospace Studies.</p>
+            <p>Built with HTML5 and CSS3 | This form is for educational purposes and does not collect real data.</p>
+        </div>
+    </footer>
+
+    <!-- Note: This script adds visual feedback to range sliders - example of going above and beyond -->
+    <script>
+        // Display current value of range sliders dynamically
+        document.querySelectorAll('input[type="range"]').forEach(slider => {
+            const display = document.createElement('div');
+            display.className = 'range-value';
+            display.textContent = `Current Value: ${slider.value}`;
+            slider.parentNode.insertBefore(display, slider.nextSibling);
+            
+            slider.addEventListener('input', function() {
+                display.textContent = `Current Value: ${this.value}`;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,419 @@
+/* ===================================
+   LUNAR WATER MINING WEBSITE STYLES
+   Slightly raw, human-written version
+   =================================== */
+
+/* BASIC RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Color vars still useful, but kept simpler */
+:root {
+    --primary-color: #1e3a8a;
+    --secondary-color: #3b82f6;
+    --accent-color: #fbbf24;
+    --dark-bg: #0f172a;
+    --light-bg: #f8fafc;
+    --text-dark: #1e293b;
+    --text-light: #cbd5e1;
+    --border-color: #e2e8f0;
+    --font-main: "Segoe UI", sans-serif;
+    --font-heading: Arial, sans-serif;
+}
+
+body {
+    font-family: var(--font-main);
+    line-height: 1.6;
+    background: var(--light-bg);
+    color: var(--text-dark);
+}
+
+/* ===================================
+   NAV BAR
+   =================================== */
+.navbar {
+    background: var(--dark-bg);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    color: #fff;
+    font-size: 1.7rem;
+    font-family: var(--font-heading);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.4rem 0.6rem;
+    font-size: 1.05rem;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+}
+
+.nav-links .active {
+    background: var(--secondary-color);
+    border-radius: 4px;
+    color: #fff;
+}
+
+/* ===================================
+   HERO SECTION
+   =================================== */
+.hero {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 4rem 1.5rem;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+.cta-button {
+    background: var(--accent-color);
+    color: #000;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.cta-button:hover {
+    background: #fcd34d;
+}
+
+/* ===================================
+   PAGE HEADER
+   =================================== */
+.page-header {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 2.3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ===================================
+   BASIC CONTENT STRUCTURE
+   =================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.8rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+/* ===================================
+   HOMEPAGE CONTENT
+   =================================== */
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.text-content h3 {
+    color: var(--secondary-color);
+    margin: 1.2rem 0 0.5rem;
+    font-size: 1.3rem;
+}
+
+.text-content p {
+    margin-bottom: 0.8rem;
+    text-align: justify;
+}
+
+.feature-list {
+    margin-left: 1rem;
+}
+
+/* Simple moon visual */
+.moon-visual {
+    background: #1e293b;
+    padding: 1.5rem;
+    border-radius: 12px;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.moon-surface {
+    width: 180px;
+    height: 180px;
+    background: #cbd5e1;
+    border-radius: 50%;
+    position: relative;
+}
+
+/* Craters (simplified) */
+.crater {
+    background: #64748b;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.crater-1 { width: 28px; height: 28px; top: 25%; left: 18%; }
+.crater-2 { width: 36px; height: 36px; top: 55%; right: 20%; }
+.crater-3 { width: 18px; height: 18px; bottom: 25%; left: 35%; }
+
+.caption {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* ===================================
+   BENEFITS GRID
+   =================================== */
+.benefits-section {
+    background: #fff;
+    padding: 3rem 1.5rem;
+    border-radius: 10px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.benefit-card {
+    background: #fff;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.7rem;
+}
+
+/* ===================================
+   TIMELINE
+   =================================== */
+.timeline {
+    padding-left: 40px;
+    margin-top: 2rem;
+    border-left: 3px solid var(--secondary-color);
+}
+
+.timeline-item {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background: var(--accent-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    position: absolute;
+    left: -48px;
+    top: 4px;
+}
+
+.timeline-year {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-bottom: 0.4rem;
+}
+
+.timeline-content {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+/* ===================================
+   STATS SECTION
+   =================================== */
+.stats-section {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 3rem 1.5rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 0.3rem;
+}
+
+/* ===================================
+   SOLUTIONS PAGE
+   =================================== */
+.solution-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin: 2rem 0;
+}
+
+.solution-header {
+    background: var(--secondary-color);
+    color: #fff;
+    padding: 1.5rem;
+}
+
+.solution-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+/* ===================================
+   TABLES
+   =================================== */
+.spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border-color);
+}
+
+.spec-table th {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 0.75rem;
+}
+
+.spec-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* ===================================
+   FORM / SURVEY
+   =================================== */
+.survey-form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.form-group {
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 6px;
+}
+
+.form-field label {
+    margin-bottom: 0.4rem;
+    display: block;
+    font-weight: 600;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    border-color: var(--secondary-color);
+}
+
+/* ===================================
+   FOOTER
+   =================================== */
+.footer {
+    background: var(--dark-bg);
+    color: var(--text-light);
+    padding: 1.5rem;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+/* ===================================
+   RESPONSIVE
+   =================================== */
+@media (max-width: 768px) {
+    .content-grid,
+    .solution-content {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+}
