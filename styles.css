@@ -383,6 +383,14 @@ body {
     border-color: var(--secondary-color);
 }
 
+.rounded-image {
+  border-radius: 10px; /* Adjust as needed */
+  /* To center the image within its parent container (if it's a block element) */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ===================================
    FOOTER
    =================================== */
@@ -416,4 +424,5 @@ body {
         flex-direction: column;
         gap: 0.6rem;
     }
+    
 }
